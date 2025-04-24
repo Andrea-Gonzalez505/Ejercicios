@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+using namespace std;
+
+
+struct Tarea {              // Estructura que representa la tarea y su prioridad
+    int prioridad;          // Prioridad de la tarea
+    string descripcion;     // Descripción de la tarea
+
+    bool operator<(const Tarea& otra) const {   // Se sobrecarga del operador < para decirle a la cola de prioridad el criterio de comparación de prioridad
+        return prioridad < otra.prioridad;      // Se ordena de mayor a menor prioridad. Número mayor equivale a mayor prioridad
+    }
+};
+
+
+int main() {
+
+    priority_queue<Tarea> Tareas;   // Cola de prioridad que almacenará las tareas
+
+    Tareas.push({3, "Revisión de informes"});
+    Tareas.push({1, "Preparar presentación"});
+    Tareas.push({4, "Responder correos urgentes"});
+    Tareas.push({2, "Reunión con el equipo"});
+    Tareas.push({5, "Planificar nueva estrategia"});  
+    
+    cout << "Tareas por orden de prioridad:" << endl;
+    for (int i = Tareas.size(); i > 0; i--) {   // Se imprimen las tareas en orden de prioridad
+        Tarea tarea_actual = Tareas.top();      // Se obtiene la tarea de mayor prioridad de las tareas que quedan
+        cout << "Prioridad " << tarea_actual.prioridad << ": " << tarea_actual.descripcion << endl; // Se imprime dicha tarea junto a su descripción
+        Tareas.pop(); // Se elimina la tarea de la cola para, en la siguiente iteración, ya no tenerla en cuenta al buscar la tarea de mayor prioridad
+    }
+    return 0;
+}
