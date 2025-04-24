@@ -1,0 +1,23 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // para find_if
+using namespace std;
+
+bool elNumeroEsPar(int numero){
+    return numero % 2 == 0;
+}
+
+int main(){
+    vector<int> numeros = {7, 13, 9, 8, 15, 6, 21};
+
+    auto numero_observado = find_if(numeros.begin(), numeros.end(), elNumeroEsPar);   // Se busca el primer número par en el vector desde su inicio hasta su fin
+
+    if (numero_observado != numeros.end()){  // Si se encontró un número par:
+        cout << "El primer número par es: " << *numero_observado << endl;
+    }
+    else{
+        cout << "No se encontró ningún número par." << endl;
+    }
+
+    return 0;
+}
