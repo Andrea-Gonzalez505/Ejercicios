@@ -1,0 +1,32 @@
+#include <iostream>
+#include <fstream>
+#include <set>
+#include <string>
+using namespace std;
+
+set<string> leerArchivo(const string& nombreDelArchivo){
+    set<string> palabras;                   // Set que almacenará el conjunto de palabras
+    ifstream archivo(nombreDelArchivo);     // Se intenta abrir el archivo
+    if (archivo.is_open()){                 // Si el archivo se abre:
+        string palabra;                     // Se crea el string donde se almacenará la palabra que se esté leyendo
+        while (archivo >> palabra){         // Se lee palabra por palabra
+            palabras.insert(palabra);       // La palabra leída se inserta en "palabras"
+        }
+        archivo.close();    // Se cierra el archivo una vez te termina de leer todas las palabras
+    }
+    else{
+        cerr << "No se pudo abrir el archivo: " << nombreDelArchivo << endl;
+    }
+    return palabras;
+}
+
+int main() {
+    set<string> palabras = leerArchivo("sampleFile.txt");   // Se llama a la función que lee el archivo y almacena las palabras en un set
+
+    cout << "Palabras en el archivo:" << endl;
+    for (const auto& palabra : palabras) {  
+        cout << palabra << endl;    // Se imprime cada palabra del set
+    }
+
+    return 0;
+}
