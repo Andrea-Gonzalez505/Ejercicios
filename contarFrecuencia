@@ -1,0 +1,32 @@
+#include <iostream>
+#include <fstream>
+#include <map>
+#include <string>
+using namespace std;
+
+map<string, int> contarFrecuencia(const string& nombreDelArchivo){
+    map<string, int> frecuenciaPalabras;    // Map para almacenar la frecuencia de cada palabra
+    ifstream archivo(nombreDelArchivo);     // Se intenta abrir el archivo
+    if (archivo.is_open()){                 // Si el archivo se abre correctamente:
+        string palabra;                     // Se crea el string donde se almacenará la palabra que se esté leyendo
+        while (archivo >> palabra) {        // Se lee palabra por palabra
+            frecuenciaPalabras[palabra]++;  // Se incrementa el contador de la palabra
+        }
+        archivo.close();                    // Se cierra el archivo
+    }
+    else{
+        cerr << "No se pudo abrir el archivo: " << nombreDelArchivo << endl;
+    }
+    return frecuenciaPalabras; // Se retorna el map con las frecuencias
+}
+
+int main() {
+    map<string, int> frecuencia = contarFrecuencia("sampleFile.txt");   // Se llama a la función que cuenta la frecuencia de palabras en el archivo
+
+    cout << "Frecuencia de palabras en el archivo:" << endl;
+    for (const auto& par : frecuencia) {
+        cout << par.first << ": " << par.second << endl; // Se imprime la palabra junto a su frecuencia
+    }
+
+    return 0;
+}
